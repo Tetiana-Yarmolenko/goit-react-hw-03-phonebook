@@ -2,10 +2,10 @@ import { Component } from 'react';
 
 import './App.css';
 
-import Container from './Components/Container/Container'
-import ContactForm from './Components/ContactForm/ContactForm'
-import ContactList from './Components/ContactList/ContactList'
-import Filter from './Components/Filter/Filter'
+import Container from './Container/Container'
+import ContactForm from './ContactForm/ContactForm'
+import ContactList from './ContactList/ContactList'
+import Filter from './Filter/Filter'
 
 class App extends Component {
   state = {
@@ -20,6 +20,27 @@ class App extends Component {
      phone: '',
   }
 
+// контакти, якщо такі є, зчитуються з локального сховища і записуються в стан.
+ 
+  componentDidMount() {
+    const contact = localStorage.getItem('contacts');
+    const parsedContact = JSON.parse(contact);
+
+    if (parsedContact) {
+      this.setState({ contacts: parsedContact })
+    }
+  }
+
+  // При додаванні і видаленні контакту, контакти зберігаються в локальне сховище.
+ 
+  componentDidUpdate(prevProps, prevState,) {
+    const contact = JSON.stringify(this.state.contacts);
+    
+    if (this.state.contacts !== prevState.contacts ) {
+      localStorage.setItem('contact', contact);
+    }
+  }
+
   handleAddContact = (newContact) => this.setState(({ contacts }) => ({
     contacts: [...contacts, newContact],
   })) 
@@ -32,6 +53,7 @@ class App extends Component {
 
     return !isExistContacts
   }
+
   handleRemoveContact = (id) =>
     this.setState(({ contacts }) =>({ contacts: contacts.filter((contact) => contact.id !== id) }))
   

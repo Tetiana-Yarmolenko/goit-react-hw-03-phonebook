@@ -30,13 +30,11 @@ function ContactList({ contacts, onRemove }) {
           <button
             className={s.button}
             type="button"
-            onClick={() => onRemove (id)}
-          >
+            onClick={() => onRemove (id)}>
             Delete
           </button>
-        </li>
-      ))}
-    </ul>
-  );
+        </li>))}
+    </ul>);
 }
+
 export default ContactList

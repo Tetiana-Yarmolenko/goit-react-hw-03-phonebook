@@ -6,7 +6,8 @@ import s from "./ContactForm.module.css"
  const INIITAL_STATE = {
         name: '',
         phone: '', 
-    }
+}
+    
 class ContactForm extends Component {
    
     state = INIITAL_STATE
@@ -26,8 +27,7 @@ class ContactForm extends Component {
         
         onAdd({ id: uuid(), name, phone })
         this.resetForm()
-
-    }
+}
 
     validateForm = () => {
         const { name, phone } = this.state;
